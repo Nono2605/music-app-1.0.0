@@ -1,17 +1,50 @@
+/* Tokens repris de musicwebsite/css/style.css — même charte, un seul endroit
+   pour les deux quand le nom de marque sera arrêté. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #05070d;
+  --color-bg-secondary: #071a33;
+  --color-card: #0d111a;
+
+  --color-blue: #1683ff;
+  --color-blue-bright: #38a7ff;
+  --color-violet: #7047ff;
+  --color-violet-soft: #9b7bff;
+
+  --color-text: #f7f9fc;
+  --color-text-muted: #9aa4b2;
+
+  --color-border: rgba(247, 249, 252, 0.1);
+  --color-overlay: rgba(5, 7, 13, 0.85);
+
+  --gradient-signature: linear-gradient(135deg, #1683ff 0%, #7047ff 100%);
+
+  --font-heading: "Space Grotesk", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --content-max-width: 1280px;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.35);
+
+  --transition-base: 0.25s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html {
   height: 100%;
+  color-scheme: dark;
 }
 
 html,
@@ -24,17 +57,11 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
@@ -42,8 +69,13 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+}
+
+input,
+button {
+  font-family: inherit;
 }
