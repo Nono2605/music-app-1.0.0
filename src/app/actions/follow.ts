@@ -19,3 +19,11 @@ export async function followArtist(artistId: string) {
 export async function unfollowArtist(artistId: string) {
   await api.delete(`/artists/${artistId}/follow`, { accessToken: await accessToken() });
 }
+
+export async function followUser(userId: string) {
+  await api.post(`/users/${userId}/follow`, undefined, { accessToken: await accessToken() });
+}
+
+export async function unfollowUser(userId: string) {
+  await api.delete(`/users/${userId}/follow`, { accessToken: await accessToken() });
+}

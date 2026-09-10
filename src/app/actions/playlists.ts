@@ -24,11 +24,12 @@ export async function createPlaylist(
 ): Promise<PlaylistFormState> {
   const title = String(formData.get("title") ?? "").trim();
   if (!title) return { error: "Title is required." };
+  const isPublic = formData.get("is_public") === "on";
 
   const token = await accessToken();
   let playlist: { id: string };
   try {
-    playlist = await api.post("/playlists", { title }, { accessToken: token });
+    playlist = await api.post("/playlists", { title, is_public: isPublic }, { accessToken: token });
   } catch (err) {
     return { error: err instanceof Error ? err.message : "Could not create playlist." };
   }

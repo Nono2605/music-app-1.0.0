@@ -15,10 +15,12 @@ export async function Nav() {
   } = await supabase.auth.getSession();
 
   let displayName: string | null = null;
+  let username: string | null = null;
   if (session) {
     try {
       const me = await api.get<Me>("/me", { accessToken: session.access_token });
-      displayName = me.profile?.username ?? session.user.email ?? null;
+      username = me.profile?.username ?? null;
+      displayName = username ?? session.user.email ?? null;
     } catch {
       displayName = session.user.email ?? null;
     }
@@ -36,7 +38,7 @@ export async function Nav() {
           <>
             <NavLink href="/library">Library</NavLink>
             <NavLink href="/playlists">Playlists</NavLink>
-            <NavLink href="/account">
+            <NavLink href={username ? `/users/${username}` : "/account"}>
               <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                 <span aria-hidden style={avatarStyle}>
                   {displayName?.[0]?.toUpperCase() ?? "?"}
@@ -44,6 +46,7 @@ export async function Nav() {
                 {displayName ?? "Account"}
               </span>
             </NavLink>
+            <NavLink href="/account">Settings</NavLink>
             <form action={logout}>
               <button type="submit" className="btn-plain">
                 Log out

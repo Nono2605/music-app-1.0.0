@@ -4,6 +4,8 @@ export interface PlaylistSummary {
   id: string;
   title: string;
   cover_url: string | null;
+  /** Absent selon l'endpoint d'origine — ne rendre le badge que si explicitement false. */
+  is_public?: boolean;
 }
 
 export function PlaylistList({ playlists, emptyMessage }: { playlists: PlaylistSummary[]; emptyMessage: string }) {
@@ -38,7 +40,20 @@ export function PlaylistList({ playlists, emptyMessage }: { playlists: PlaylistS
                 : "var(--gradient-signature)",
             }}
           />
-          <span style={{ fontWeight: 600 }}>{playlist.title}</span>
+          <span style={{ fontWeight: 600, flex: 1 }}>{playlist.title}</span>
+          {playlist.is_public === false && (
+            <span
+              style={{
+                fontSize: "0.75rem",
+                color: "var(--color-text-muted)",
+                border: "1px solid var(--color-border)",
+                borderRadius: "999px",
+                padding: "0.15rem 0.6rem",
+              }}
+            >
+              Private
+            </span>
+          )}
         </Link>
       ))}
     </div>
