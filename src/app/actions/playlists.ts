@@ -42,6 +42,12 @@ export async function deletePlaylist(playlistId: string) {
   redirect("/playlists");
 }
 
+export async function setPlaylistVisibility(playlistId: string, isPublic: boolean) {
+  await api.patch(`/playlists/${playlistId}`, { is_public: isPublic }, { accessToken: await accessToken() });
+  revalidatePath(`/playlists/${playlistId}`);
+  revalidatePath("/playlists");
+}
+
 export async function addTrackToPlaylist(playlistId: string, trackId: string) {
   await api.post(`/playlists/${playlistId}/tracks`, { track_id: trackId }, { accessToken: await accessToken() });
   revalidatePath(`/playlists/${playlistId}`);

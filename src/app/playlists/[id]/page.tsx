@@ -4,6 +4,7 @@ import { api } from "@/lib/api";
 import { formatDuration } from "@/lib/formatDuration";
 import { removeTrackFromPlaylist, deletePlaylist } from "@/app/actions/playlists";
 import { TrackPlayButton } from "@/components/TrackPlayButton";
+import { PlaylistVisibilityToggle } from "@/components/PlaylistVisibilityToggle";
 import { AddTrackSearch } from "./AddTrackSearch";
 
 interface PlaylistTrack {
@@ -19,6 +20,7 @@ interface PlaylistDetail {
   title: string;
   description: string | null;
   cover_url: string | null;
+  is_public: boolean;
   is_owner: boolean;
   tracks: PlaylistTrack[];
 }
@@ -60,11 +62,14 @@ export default async function PlaylistPage({ params }: { params: Promise<{ id: s
           <h1 style={{ fontSize: "2rem" }}>{playlist.title}</h1>
           {playlist.description && <p style={{ color: "var(--color-text-muted)" }}>{playlist.description}</p>}
           {playlist.is_owner && (
-            <form action={deletePlaylist.bind(null, playlist.id)}>
-              <button type="submit" className="btn-plain" style={{ color: "#ff6b6b" }}>
-                Delete playlist
-              </button>
-            </form>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--space-md)" }}>
+              <PlaylistVisibilityToggle playlistId={playlist.id} initialIsPublic={playlist.is_public} />
+              <form action={deletePlaylist.bind(null, playlist.id)}>
+                <button type="submit" className="btn-plain" style={{ color: "#ff6b6b" }}>
+                  Delete playlist
+                </button>
+              </form>
+            </div>
           )}
         </div>
       </div>
