@@ -58,8 +58,17 @@ export function PlayerBar() {
 }
 
 const barStyle: React.CSSProperties = {
-  position: "sticky",
+  // fixed plutôt que sticky : "overflow-x: hidden" sur html/body (globals.css)
+  // fait implicitement passer overflow-y à "auto" sur les deux, ce qui rend
+  // le comportement de sticky imprévisible selon la page. fixed est ancré au
+  // viewport sans ambiguïté — voir la marge réservée dans layout.tsx.
+  position: "fixed",
+  left: 0,
+  right: 0,
   bottom: 0,
+  zIndex: 50,
+  minHeight: "var(--player-bar-height)",
+  boxSizing: "border-box",
   display: "flex",
   alignItems: "center",
   gap: "var(--space-lg)",

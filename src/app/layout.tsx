@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Suspense fallback={<NavFallback />}>
             <Nav />
           </Suspense>
-          <main style={{ flex: 1 }}>{children}</main>
+          <main style={{ flex: 1, paddingBottom: "var(--player-bar-height)" }}>{children}</main>
           <PlayerBar />
         </PlayerProvider>
       </body>
