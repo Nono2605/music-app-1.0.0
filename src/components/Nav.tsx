@@ -41,6 +41,7 @@ export async function Nav() {
       </Link>
       <div style={{ display: "flex", gap: "var(--space-md)", alignItems: "center" }}>
         <Link href="/discover">Discover</Link>
+        <Link href="/search">Search</Link>
         {session ? (
           <>
             <span
