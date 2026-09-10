@@ -55,7 +55,9 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     if (!audio) return;
 
     if (trackIdRef.current === track.id) {
-      audio.play();
+      audio.play().catch((err) => {
+        setState((s) => ({ ...s, isPlaying: false, error: err instanceof Error ? err.message : "Could not resume playback." }));
+      });
       setState((s) => ({ ...s, isPlaying: true }));
       return;
     }
@@ -83,7 +85,9 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     const audio = audioRef.current;
     if (!audio || !trackIdRef.current) return;
     if (audio.paused) {
-      audio.play();
+      audio.play().catch((err) => {
+        setState((s) => ({ ...s, isPlaying: false, error: err instanceof Error ? err.message : "Could not resume playback." }));
+      });
       setState((s) => ({ ...s, isPlaying: true }));
     } else {
       audio.pause();
