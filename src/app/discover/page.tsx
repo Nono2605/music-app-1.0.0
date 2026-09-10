@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 import { api } from "@/lib/api";
 
 interface Track {
@@ -13,6 +15,15 @@ interface TracksResponse {
 }
 
 export default async function DiscoverPage() {
+  const supabase = await createClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    redirect("/login");
+  }
+
   const { data: tracks } = await api.get<TracksResponse>("/tracks?limit=24");
 
   return (
