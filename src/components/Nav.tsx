@@ -46,7 +46,8 @@ export async function Nav() {
           <>
             <Link href="/library">Library</Link>
             <Link href="/playlists">Playlists</Link>
-            <span
+            <Link
+              href="/account"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -72,7 +73,7 @@ export async function Nav() {
                 {displayName?.[0]?.toUpperCase() ?? "?"}
               </span>
               {displayName ?? "Account"}
-            </span>
+            </Link>
             <form action={logout}>
               <button
                 type="submit"
