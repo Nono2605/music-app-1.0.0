@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { api } from "@/lib/api";
 import { logout } from "@/app/actions/auth";
+import { NavLink } from "@/components/NavLink";
 
 interface Me {
   profile: { username: string } | null;
@@ -24,76 +25,35 @@ export async function Nav() {
   }
 
   return (
-    <nav
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "var(--space-sm) var(--space-lg)",
-        borderBottom: "1px solid var(--color-border)",
-      }}
-    >
-      <Link
-        href="/"
-        style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.125rem" }}
-      >
+    <nav style={navStyle}>
+      <Link href="/" style={brandStyle}>
         BRAND
       </Link>
       <div style={{ display: "flex", gap: "var(--space-md)", alignItems: "center" }}>
-        <Link href="/discover">Discover</Link>
-        <Link href="/search">Search</Link>
+        <NavLink href="/discover">Discover</NavLink>
+        <NavLink href="/search">Search</NavLink>
         {session ? (
           <>
-            <Link href="/library">Library</Link>
-            <Link href="/playlists">Playlists</Link>
-            <Link
-              href="/account"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                color: "var(--color-text-muted)",
-              }}
-            >
-              <span
-                aria-hidden
-                style={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: "50%",
-                  background: "var(--gradient-signature)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  color: "#fff",
-                }}
-              >
-                {displayName?.[0]?.toUpperCase() ?? "?"}
+            <NavLink href="/library">Library</NavLink>
+            <NavLink href="/playlists">Playlists</NavLink>
+            <NavLink href="/account">
+              <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <span aria-hidden style={avatarStyle}>
+                  {displayName?.[0]?.toUpperCase() ?? "?"}
+                </span>
+                {displayName ?? "Account"}
               </span>
-              {displayName ?? "Account"}
-            </Link>
+            </NavLink>
             <form action={logout}>
-              <button
-                type="submit"
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "inherit",
-                  cursor: "pointer",
-                  font: "inherit",
-                  padding: 0,
-                }}
-              >
+              <button type="submit" className="btn-plain">
                 Log out
               </button>
             </form>
           </>
         ) : (
           <>
-            <Link href="/login">Log in</Link>
-            <Link href="/signup">Sign up</Link>
+            <NavLink href="/login">Log in</NavLink>
+            <NavLink href="/signup">Sign up</NavLink>
           </>
         )}
       </div>
@@ -103,19 +63,36 @@ export async function Nav() {
 
 export function NavFallback() {
   return (
-    <nav
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "var(--space-sm) var(--space-lg)",
-        borderBottom: "1px solid var(--color-border)",
-      }}
-    >
-      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.125rem" }}>
-        BRAND
-      </span>
+    <nav style={navStyle}>
+      <span style={brandStyle}>BRAND</span>
       <div style={{ display: "flex", gap: "var(--space-md)", alignItems: "center" }} />
     </nav>
   );
 }
+
+const navStyle: React.CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: "var(--space-sm) var(--space-lg)",
+  borderBottom: "1px solid var(--color-border)",
+};
+
+const brandStyle: React.CSSProperties = {
+  fontFamily: "var(--font-heading)",
+  fontWeight: 700,
+  fontSize: "1.125rem",
+};
+
+const avatarStyle: React.CSSProperties = {
+  width: 24,
+  height: 24,
+  borderRadius: "50%",
+  background: "var(--gradient-signature)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontSize: "0.75rem",
+  fontWeight: 700,
+  color: "#fff",
+};

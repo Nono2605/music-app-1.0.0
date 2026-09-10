@@ -23,6 +23,7 @@ export function TrackPlayButton({
     <button
       onClick={handleClick}
       aria-label={showPause ? "Pause" : "Play"}
+      className="icon-btn"
       style={{
         width: size,
         height: size,
@@ -36,6 +37,7 @@ export function TrackPlayButton({
         justifyContent: "center",
         fontSize: size * 0.4,
         flex: "none",
+        boxShadow: "var(--shadow-card)",
       }}
     >
       {showPause ? "❚❚" : "▶"}

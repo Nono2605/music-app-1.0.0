@@ -13,28 +13,10 @@ export function CreatePlaylistForm() {
         name="title"
         placeholder="New playlist name"
         required
-        style={{
-          flex: 1,
-          padding: "0.65rem 1rem",
-          borderRadius: "var(--radius-sm)",
-          border: "1px solid var(--color-border)",
-          background: "var(--color-card)",
-          color: "var(--color-text)",
-        }}
+        className="input-field"
+        style={{ flex: 1 }}
       />
-      <button
-        type="submit"
-        disabled={pending}
-        style={{
-          padding: "0.65rem 1.25rem",
-          borderRadius: "var(--radius-sm)",
-          border: "none",
-          background: "var(--gradient-signature)",
-          color: "#fff",
-          fontWeight: 600,
-          cursor: "pointer",
-        }}
-      >
+      <button type="submit" disabled={pending} className="btn btn-primary" style={{ padding: "0.65rem 1.25rem" }}>
         {pending ? "Creating…" : "Create"}
       </button>
       {state?.error && <p style={{ color: "#ff6b6b" }}>{state.error}</p>}

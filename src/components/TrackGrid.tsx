@@ -32,7 +32,7 @@ export function TrackGrid({
       }}
     >
       {tracks.map((track) => (
-        <article key={track.id}>
+        <article key={track.id} className="hover-card">
           <div
             style={{
               position: "relative",

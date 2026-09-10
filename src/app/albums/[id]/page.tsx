@@ -70,7 +70,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ id: stri
           <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>{album.title}</h1>
           {album.artists && (
             <p style={{ color: "var(--color-text-muted)" }}>
-              <Link href={`/artists/${album.artists.slug}`} style={{ color: "var(--color-blue-bright)" }}>
+              <Link href={`/artists/${album.artists.slug}`} className="text-link">
                 {album.artists.name}
               </Link>
               {releaseYear && ` · ${releaseYear}`}
@@ -87,11 +87,13 @@ export default async function AlbumPage({ params }: { params: Promise<{ id: stri
             {album.tracks.map((track, index) => (
               <li
                 key={track.id}
+                className="list-row"
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "var(--space-md)",
-                  padding: "0.65rem 0",
+                  padding: "0.65rem var(--space-sm)",
+                  borderRadius: "var(--radius-sm)",
                   borderBottom: "1px solid var(--color-border)",
                 }}
               >

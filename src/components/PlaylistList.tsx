@@ -17,6 +17,7 @@ export function PlaylistList({ playlists, emptyMessage }: { playlists: PlaylistS
         <Link
           key={playlist.id}
           href={`/playlists/${playlist.id}`}
+          className="list-row"
           style={{
             display: "flex",
             alignItems: "center",

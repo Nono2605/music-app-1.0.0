@@ -61,10 +61,7 @@ export default async function PlaylistPage({ params }: { params: Promise<{ id: s
           {playlist.description && <p style={{ color: "var(--color-text-muted)" }}>{playlist.description}</p>}
           {playlist.is_owner && (
             <form action={deletePlaylist.bind(null, playlist.id)}>
-              <button
-                type="submit"
-                style={{ background: "none", border: "none", color: "#ff6b6b", cursor: "pointer", padding: 0 }}
-              >
+              <button type="submit" className="btn-plain" style={{ color: "#ff6b6b" }}>
                 Delete playlist
               </button>
             </form>
@@ -80,11 +77,13 @@ export default async function PlaylistPage({ params }: { params: Promise<{ id: s
             {playlist.tracks.map((track, index) => (
               <li
                 key={track.id}
+                className="list-row"
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "var(--space-md)",
-                  padding: "0.65rem 0",
+                  padding: "0.65rem var(--space-sm)",
+                  borderRadius: "var(--radius-sm)",
                   borderBottom: "1px solid var(--color-border)",
                 }}
               >
@@ -110,7 +109,8 @@ export default async function PlaylistPage({ params }: { params: Promise<{ id: s
                     <button
                       type="submit"
                       aria-label={`Remove ${track.title}`}
-                      style={{ background: "none", border: "none", color: "var(--color-text-muted)", cursor: "pointer" }}
+                      className="btn-plain"
+                      style={{ color: "var(--color-text-muted)" }}
                     >
                       ✕
                     </button>

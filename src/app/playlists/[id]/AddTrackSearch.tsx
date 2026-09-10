@@ -13,27 +13,10 @@ export function AddTrackSearch({ playlistId }: { playlistId: string }) {
           type="text"
           name="q"
           placeholder="Search tracks to add"
-          style={{
-            flex: 1,
-            padding: "0.6rem 0.9rem",
-            borderRadius: "var(--radius-sm)",
-            border: "1px solid var(--color-border)",
-            background: "var(--color-card)",
-            color: "var(--color-text)",
-          }}
+          className="input-field"
+          style={{ flex: 1, padding: "0.6rem 0.9rem" }}
         />
-        <button
-          type="submit"
-          disabled={pending}
-          style={{
-            padding: "0.6rem 1rem",
-            borderRadius: "var(--radius-sm)",
-            border: "1px solid var(--color-border)",
-            background: "transparent",
-            color: "var(--color-text)",
-            cursor: "pointer",
-          }}
-        >
+        <button type="submit" disabled={pending} className="btn btn-secondary" style={{ padding: "0.6rem 1rem" }}>
           Search
         </button>
       </form>
@@ -64,13 +47,8 @@ export function AddTrackSearch({ playlistId }: { playlistId: string }) {
                 <form action={addTrackToPlaylist.bind(null, playlistId, track.id)}>
                   <button
                     type="submit"
-                    style={{
-                      background: "none",
-                      border: "none",
-                      color: "var(--color-blue-bright)",
-                      cursor: "pointer",
-                      fontWeight: 600,
-                    }}
+                    className="btn-plain"
+                    style={{ color: "var(--color-blue-bright)", fontWeight: 600 }}
                   >
                     Add
                   </button>

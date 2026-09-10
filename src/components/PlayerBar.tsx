@@ -31,6 +31,7 @@ export function PlayerBar() {
           onClick={toggle}
           disabled={isLoading}
           aria-label={isPlaying ? "Pause" : "Play"}
+          className="icon-btn"
           style={playButtonStyle}
         >
           {isLoading ? "…" : isPlaying ? "❚❚" : "▶"}
@@ -75,6 +76,7 @@ const barStyle: React.CSSProperties = {
   padding: "var(--space-sm) var(--space-lg)",
   borderTop: "1px solid var(--color-border)",
   background: "var(--color-card)",
+  boxShadow: "0 -8px 24px rgba(0, 0, 0, 0.35)",
   flexWrap: "wrap",
 };
 

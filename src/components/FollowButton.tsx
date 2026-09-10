@@ -24,16 +24,7 @@ export function FollowButton({ artistId, initialFollowing }: { artistId: string;
     <button
       onClick={toggle}
       disabled={pending}
-      style={{
-        padding: "0.6rem 1.25rem",
-        borderRadius: "var(--radius-sm)",
-        border: following ? "1px solid var(--color-border)" : "none",
-        background: following ? "transparent" : "var(--gradient-signature)",
-        color: following ? "var(--color-text)" : "#fff",
-        fontWeight: 600,
-        cursor: pending ? "default" : "pointer",
-        opacity: pending ? 0.7 : 1,
-      }}
+      className={`btn ${following ? "btn-secondary" : "btn-primary"}`}
     >
       {following ? "Following" : "Follow"}
     </button>

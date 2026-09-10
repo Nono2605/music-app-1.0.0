@@ -21,7 +21,7 @@ export function AlbumGrid({ albums, emptyMessage }: { albums: Album[]; emptyMess
       }}
     >
       {albums.map((album) => (
-        <Link key={album.id} href={`/albums/${album.id}`} style={{ display: "block" }}>
+        <Link key={album.id} href={`/albums/${album.id}`} className="hover-card">
           <div
             style={{
               width: "100%",

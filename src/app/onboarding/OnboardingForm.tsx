@@ -14,28 +14,10 @@ export function OnboardingForm() {
         placeholder="Username"
         required
         minLength={3}
-        style={{
-          padding: "0.75rem 1rem",
-          borderRadius: "var(--radius-sm)",
-          border: "1px solid var(--color-border)",
-          background: "var(--color-card)",
-          color: "var(--color-text)",
-        }}
+        className="input-field"
       />
       {state?.error && <p style={{ color: "#ff6b6b" }}>{state.error}</p>}
-      <button
-        type="submit"
-        disabled={pending}
-        style={{
-          padding: "0.75rem 1rem",
-          borderRadius: "var(--radius-sm)",
-          border: "none",
-          background: "var(--gradient-signature)",
-          color: "#fff",
-          fontWeight: 600,
-          cursor: "pointer",
-        }}
-      >
+      <button type="submit" disabled={pending} className="btn btn-primary" style={{ padding: "0.75rem 1rem" }}>
         {pending ? "Saving…" : "Continue"}
       </button>
     </form>

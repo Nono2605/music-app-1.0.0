@@ -43,27 +43,10 @@ export default async function SearchPage({
             placeholder="Search tracks or artists"
             defaultValue={query}
             autoFocus
-            style={{
-              flex: 1,
-              padding: "0.75rem 1rem",
-              borderRadius: "var(--radius-sm)",
-              border: "1px solid var(--color-border)",
-              background: "var(--color-card)",
-              color: "var(--color-text)",
-            }}
+            className="input-field"
+            style={{ flex: 1 }}
           />
-          <button
-            type="submit"
-            style={{
-              padding: "0.75rem 1.25rem",
-              borderRadius: "var(--radius-sm)",
-              border: "none",
-              background: "var(--gradient-signature)",
-              color: "#fff",
-              fontWeight: 600,
-              cursor: "pointer",
-            }}
-          >
+          <button type="submit" className="btn btn-primary" style={{ padding: "0.75rem 1.25rem" }}>
             Search
           </button>
         </form>

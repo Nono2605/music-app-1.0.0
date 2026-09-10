@@ -26,7 +26,8 @@ export function ArtistGrid({ artists, emptyMessage }: { artists: Artist[]; empty
         <Link
           key={artist.id}
           href={`/artists/${artist.slug}`}
-          style={{ textAlign: "center", display: "block" }}
+          className="hover-card"
+          style={{ textAlign: "center" }}
         >
           <div
             style={{

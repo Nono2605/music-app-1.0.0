@@ -34,6 +34,7 @@ export function SaveButton({
       disabled={pending}
       aria-label={saved ? "Remove from library" : "Save to library"}
       aria-pressed={saved}
+      className="icon-btn"
       style={{
         background: "none",
         border: "none",
