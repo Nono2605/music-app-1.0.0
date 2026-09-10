@@ -2,6 +2,7 @@ import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { api } from "@/lib/api";
+import { formatDuration } from "@/lib/formatDuration";
 
 interface AlbumTrack {
   id: string;
@@ -18,13 +19,6 @@ interface AlbumDetail {
   type: string;
   artists: { name: string; slug: string } | null;
   tracks: AlbumTrack[];
-}
-
-function formatDuration(seconds: number | null): string {
-  if (seconds === null) return "--:--";
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
 export default async function AlbumPage({ params }: { params: Promise<{ id: string }> }) {

@@ -44,6 +44,8 @@ export async function Nav() {
         <Link href="/search">Search</Link>
         {session ? (
           <>
+            <Link href="/library">Library</Link>
+            <Link href="/playlists">Playlists</Link>
             <span
               style={{
                 display: "flex",

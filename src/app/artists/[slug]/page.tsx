@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { api } from "@/lib/api";
 import { TrackGrid, type Track } from "@/components/TrackGrid";
 import { FollowButton } from "@/components/FollowButton";
+import { getSavedTrackIds } from "@/lib/savedTrackIds";
 
 interface ArtistDetail {
   id: string;
@@ -33,9 +34,10 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
     notFound();
   }
 
-  const { following } = await api.get<{ following: boolean }>(`/me/follows/${artist.id}`, {
-    accessToken: session.access_token,
-  });
+  const [{ following }, savedTrackIds] = await Promise.all([
+    api.get<{ following: boolean }>(`/me/follows/${artist.id}`, { accessToken: session.access_token }),
+    getSavedTrackIds(session.access_token),
+  ]);
 
   const tracksWithArtist: Track[] = artist.tracks.map((t) => ({ ...t, artists: { name: artist.name } }));
 
@@ -82,7 +84,11 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
 
         <section style={{ marginTop: "var(--space-xl)", paddingBottom: "var(--space-xl)" }}>
           <h2 style={{ fontSize: "1.125rem", marginBottom: "var(--space-md)" }}>Tracks</h2>
-          <TrackGrid tracks={tracksWithArtist} emptyMessage="No tracks published yet." />
+          <TrackGrid
+            tracks={tracksWithArtist}
+            emptyMessage="No tracks published yet."
+            savedTrackIds={savedTrackIds}
+          />
         </section>
       </div>
     </div>

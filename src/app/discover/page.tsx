@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { api } from "@/lib/api";
 import { TrackGrid, type Track } from "@/components/TrackGrid";
 import { ArtistGrid, type Artist } from "@/components/ArtistGrid";
+import { getSavedTrackIds } from "@/lib/savedTrackIds";
 
 export default async function DiscoverPage() {
   const supabase = await createClient();
@@ -14,9 +15,10 @@ export default async function DiscoverPage() {
     redirect("/login");
   }
 
-  const [tracksRes, artistsRes] = await Promise.all([
+  const [tracksRes, artistsRes, savedTrackIds] = await Promise.all([
     api.get<{ data: Track[] }>("/tracks?limit=12"),
     api.get<{ data: Artist[] }>("/artists?limit=12"),
+    getSavedTrackIds(session.access_token),
   ]);
 
   return (
@@ -30,7 +32,11 @@ export default async function DiscoverPage() {
 
       <section>
         <h2 style={{ fontSize: "1.125rem", marginBottom: "var(--space-md)" }}>New tracks</h2>
-        <TrackGrid tracks={tracksRes.data} emptyMessage="No tracks published yet — check back soon." />
+        <TrackGrid
+          tracks={tracksRes.data}
+          emptyMessage="No tracks published yet — check back soon."
+          savedTrackIds={savedTrackIds}
+        />
       </section>
 
       <section>

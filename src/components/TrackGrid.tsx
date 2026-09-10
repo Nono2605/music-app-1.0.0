@@ -1,3 +1,5 @@
+import { SaveButton } from "@/components/SaveButton";
+
 export interface Track {
   id: string;
   title: string;
@@ -6,7 +8,16 @@ export interface Track {
   albums: { cover_url: string | null } | null;
 }
 
-export function TrackGrid({ tracks, emptyMessage }: { tracks: Track[]; emptyMessage: string }) {
+export function TrackGrid({
+  tracks,
+  emptyMessage,
+  savedTrackIds,
+}: {
+  tracks: Track[];
+  emptyMessage: string;
+  /** Si fourni, affiche le bouton Sauvegarder sur chaque carte. */
+  savedTrackIds?: Set<string>;
+}) {
   if (tracks.length === 0) {
     return <p style={{ color: "var(--color-text-muted)" }}>{emptyMessage}</p>;
   }
@@ -23,6 +34,7 @@ export function TrackGrid({ tracks, emptyMessage }: { tracks: Track[]; emptyMess
         <article key={track.id}>
           <div
             style={{
+              position: "relative",
               width: "100%",
               aspectRatio: "1",
               borderRadius: "var(--radius-md)",
@@ -31,7 +43,26 @@ export function TrackGrid({ tracks, emptyMessage }: { tracks: Track[]; emptyMess
                 ? `url(${track.albums.cover_url}) center/cover`
                 : "var(--gradient-signature)",
             }}
-          />
+          >
+            {savedTrackIds && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "0.5rem",
+                  right: "0.5rem",
+                  background: "var(--color-overlay)",
+                  borderRadius: "50%",
+                  width: 28,
+                  height: 28,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <SaveButton itemType="track" itemId={track.id} initialSaved={savedTrackIds.has(track.id)} />
+              </div>
+            )}
+          </div>
           <p style={{ fontWeight: 600, fontSize: "0.9375rem" }}>{track.title}</p>
           <p style={{ color: "var(--color-text-muted)", fontSize: "0.8125rem" }}>
             {track.artists?.name ?? "Unknown artist"}
