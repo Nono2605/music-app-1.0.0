@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { api } from "@/lib/api";
-import { logout } from "@/app/actions/auth";
 import { NavLink } from "@/components/NavLink";
+import { AccountMenu } from "@/components/AccountMenu";
 
 interface Me {
   profile: { username: string } | null;
@@ -38,20 +38,7 @@ export async function Nav() {
           <>
             <NavLink href="/library">Library</NavLink>
             <NavLink href="/playlists">Playlists</NavLink>
-            <NavLink href={username ? `/users/${username}` : "/account"}>
-              <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <span aria-hidden style={avatarStyle}>
-                  {displayName?.[0]?.toUpperCase() ?? "?"}
-                </span>
-                {displayName ?? "Account"}
-              </span>
-            </NavLink>
-            <NavLink href="/account">Settings</NavLink>
-            <form action={logout}>
-              <button type="submit" className="btn-plain">
-                Log out
-              </button>
-            </form>
+            <AccountMenu profileHref={username ? `/users/${username}` : "/account"} displayName={displayName} />
           </>
         ) : (
           <>
@@ -85,17 +72,4 @@ const brandStyle: React.CSSProperties = {
   fontFamily: "var(--font-heading)",
   fontWeight: 700,
   fontSize: "1.125rem",
-};
-
-const avatarStyle: React.CSSProperties = {
-  width: 24,
-  height: 24,
-  borderRadius: "50%",
-  background: "var(--gradient-signature)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  fontSize: "0.75rem",
-  fontWeight: 700,
-  color: "#fff",
 };

@@ -251,3 +251,19 @@ textarea {
 .text-link:hover {
   text-decoration: underline;
 }
+
+.menu-item {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--radius-sm) - 2px);
+  color: var(--color-text);
+  background: none;
+  border: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+}
+.menu-item:hover {
+  background: var(--color-border);
+}

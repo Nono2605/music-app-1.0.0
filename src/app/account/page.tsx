@@ -1,11 +1,16 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { api } from "@/lib/api";
-import { ProfileForm } from "./ProfileForm";
+import { PasswordForm } from "./PasswordForm";
+import { PreferencesForm } from "./PreferencesForm";
 
 interface Me {
   email: string;
-  profile: { username: string; display_name: string | null; bio: string | null } | null;
+  profile: {
+    username: string;
+    explicit_content: boolean;
+    favorite_genres: string[] | null;
+  } | null;
 }
 
 interface Subscription {
@@ -31,15 +36,19 @@ export default async function AccountPage() {
 
   return (
     <div style={{ padding: "var(--space-lg)", display: "flex", flexDirection: "column", gap: "var(--space-xl)" }}>
-      <h1 style={{ fontSize: "1.75rem" }}>Account</h1>
+      <h1 style={{ fontSize: "1.75rem" }}>Settings</h1>
 
       <section>
-        <h2 style={{ fontSize: "1.125rem", marginBottom: "var(--space-md)" }}>Profile</h2>
+        <h2 style={{ fontSize: "1.125rem", marginBottom: "var(--space-md)" }}>Private info</h2>
         <p style={{ color: "var(--color-text-muted)", marginBottom: "var(--space-md)" }}>{me.email}</p>
-        <ProfileForm
-          username={me.profile?.username ?? ""}
-          displayName={me.profile?.display_name ?? ""}
-          bio={me.profile?.bio ?? ""}
+        <PasswordForm />
+      </section>
+
+      <section>
+        <h2 style={{ fontSize: "1.125rem", marginBottom: "var(--space-md)" }}>Music preferences</h2>
+        <PreferencesForm
+          explicitContent={me.profile?.explicit_content ?? true}
+          favoriteGenres={me.profile?.favorite_genres ?? []}
         />
       </section>
 
