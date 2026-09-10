@@ -107,8 +107,18 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
       {children}
       <audio
         ref={audioRef}
-        onTimeUpdate={(e) => setState((s) => ({ ...s, currentTime: e.currentTarget.currentTime }))}
-        onLoadedMetadata={(e) => setState((s) => ({ ...s, duration: e.currentTarget.duration }))}
+        onTimeUpdate={(e) => {
+          // Lire currentTarget tout de suite : la fonction de mise à jour du
+          // state passée à setState s'exécute de façon différée, et React a
+          // déjà recyclé l'événement synthétique à ce moment-là (currentTarget
+          // devient null) — d'où le crash "Cannot read properties of null".
+          const currentTime = e.currentTarget.currentTime;
+          setState((s) => ({ ...s, currentTime }));
+        }}
+        onLoadedMetadata={(e) => {
+          const duration = e.currentTarget.duration;
+          setState((s) => ({ ...s, duration }));
+        }}
         onEnded={() => setState((s) => ({ ...s, isPlaying: false, currentTime: 0 }))}
         onError={() =>
           setState((s) => ({ ...s, isPlaying: false, isLoading: false, error: "Playback error." }))
