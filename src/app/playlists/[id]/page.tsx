@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { api } from "@/lib/api";
 import { formatDuration } from "@/lib/formatDuration";
 import { removeTrackFromPlaylist, deletePlaylist } from "@/app/actions/playlists";
+import { TrackPlayButton } from "@/components/TrackPlayButton";
 import { AddTrackSearch } from "./AddTrackSearch";
 
 interface PlaylistTrack {
@@ -88,6 +89,15 @@ export default async function PlaylistPage({ params }: { params: Promise<{ id: s
                 }}
               >
                 <span style={{ color: "var(--color-text-muted)", width: 24, textAlign: "right" }}>{index + 1}</span>
+                <TrackPlayButton
+                  track={{
+                    id: track.id,
+                    title: track.title,
+                    artistName: track.artists?.name ?? "Unknown artist",
+                    coverUrl: playlist.cover_url,
+                  }}
+                  size={28}
+                />
                 <span style={{ flex: 1 }}>
                   {track.title}{" "}
                   <span style={{ color: "var(--color-text-muted)" }}>— {track.artists?.name ?? "Unknown"}</span>

@@ -2,6 +2,7 @@ import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { api } from "@/lib/api";
+import { TrackPlayButton } from "@/components/TrackPlayButton";
 import { formatDuration } from "@/lib/formatDuration";
 
 interface AlbumTrack {
@@ -97,6 +98,15 @@ export default async function AlbumPage({ params }: { params: Promise<{ id: stri
                 <span style={{ color: "var(--color-text-muted)", width: 24, textAlign: "right" }}>
                   {track.track_number ?? index + 1}
                 </span>
+                <TrackPlayButton
+                  track={{
+                    id: track.id,
+                    title: track.title,
+                    artistName: album.artists?.name ?? "Unknown artist",
+                    coverUrl: album.cover_url,
+                  }}
+                  size={28}
+                />
                 <span style={{ flex: 1 }}>{track.title}</span>
                 <span style={{ color: "var(--color-text-muted)", fontVariantNumeric: "tabular-nums" }}>
                   {formatDuration(track.duration_seconds)}

@@ -1,4 +1,5 @@
 import { SaveButton } from "@/components/SaveButton";
+import { TrackPlayButton } from "@/components/TrackPlayButton";
 
 export interface Track {
   id: string;
@@ -44,6 +45,25 @@ export function TrackGrid({
                 : "var(--gradient-signature)",
             }}
           >
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <TrackPlayButton
+                track={{
+                  id: track.id,
+                  title: track.title,
+                  artistName: track.artists?.name ?? "Unknown artist",
+                  coverUrl: track.albums?.cover_url ?? null,
+                }}
+                size={44}
+              />
+            </div>
             {savedTrackIds && (
               <div
                 style={{
